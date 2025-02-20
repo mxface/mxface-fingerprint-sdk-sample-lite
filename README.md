@@ -15,6 +15,7 @@ This documentation provides a comprehensive guide for setting up and using the *
 4. Note down the generated Hardware ID displayed in the format:
    
    **Example:** `Generated Device Id: MQAS5AGX3VWKYGH9ZNR07EHSA4BMDKE0JDXH7WQGAH8WH33BJ8W0`
+5. Provide the retrieved Hardware ID to Mantra for generating your License File.
 
 ### 2. Activating License Files
 1. Navigate to the **Artifacts** folder in your root directory.
@@ -30,13 +31,13 @@ This documentation provides a comprehensive guide for setting up and using the *
    ```sh
    id_gen.exe sn.txt hardware.id
    ```
-6. Provide the retrieved Hardware ID to the vendor for generating your License File.
-7. Navigate back to the **Activation** folder in Command Prompt:
+
+6. Navigate back to the **Activation** folder in Command Prompt:
    
    ```sh
    cd ..
    ```
-8. Once in the **Activation** folder, run the command:
+7. Once in the **Activation** folder, run the command:
    
    ```sh
    pg.exe -install
@@ -96,18 +97,16 @@ To enroll, search, and match fingerprints, you need to connect to a database.
 4. Configure your database settings and **Test the Connection**.
 5. If successful, run the following SQL query to create the required table:
    
-   ```sql
-   CREATE TABLE IF NOT EXISTS public."__FingerprintSubjects" (
-       "Id" integer NOT NULL,
-       "SubjectId" varchar(45),
-       "Template" bytea,
-       "Group" varchar(45),
-       "ClientId" integer,
-       CONSTRAINT "__FingerprintSubjects_pkey" PRIMARY KEY ("Id")
-   ) TABLESPACE pg_default;
-   
-   ALTER TABLE public."__FingerprintSubjects" OWNER TO sa;
-   ```
+  ## Database Table: __FingerprintSubjects
+
+| Column Name | Data Type              | Constraints                      | Default Value |
+|------------|-----------------------|---------------------------------|--------------|
+| Id         | integer               | NOT NULL, PRIMARY KEY           | NULL |
+| SubjectId  | character varying(45) |                                 | NULL         |
+| Template   | bytea                  |                                 | NULL         |
+| Group      | character varying(45) |                                 | NULL         |
+| ClientId   | integer               |                                 | NULL         |
+
 
 ## Interfaces Overview
 The **MxFace Fingerprint SDK** provides comprehensive fingerprint management through three main interfaces:
@@ -203,4 +202,3 @@ var searchResults = await searchService.Search(captureResult.FingerprintData, "G
 ```
 
 ## End of Documentation
-
